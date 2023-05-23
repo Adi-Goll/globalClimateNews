@@ -10,18 +10,18 @@ function App() {
    const [showNews, setShowNews] = React.useState(false);
    const [newsObj, setNewsObj] = React.useState(<h1>Top News From the Country you Selected</h1>);
 
-   const countryNewsObject: any = {
-      title: String,
-      text: String,
-      author: String,
-      image: String,
-      publish_date: String,
-      url: String,
-   };
+   function countryNewsObject() {
+      return {
+         title: '',
+         text: '',
+         author: '',
+         image: '',
+         publish_date: '',
+         url: '',
+      };
+   }
 
    let curCountry = '';
-
-   const newsArray: any = [];
 
    const getCountry = () => {
       axios
@@ -40,6 +40,8 @@ function App() {
 
    const getNewsForCountry = (country: any) => {
       curCountry = country;
+      const newsArray: any = [];
+
       axios
          .get(
             `https://api.worldnewsapi.com/search-news?text=Climate&source-countries=${country}&language=en&number=3&api-key=7d43771171214c03990266b5aa4d1197`,
@@ -49,22 +51,66 @@ function App() {
             setShowNews(true);
             for (let i = 0; i < 3; i++) {
                if (!response.data.news[i]) {
-                  break;
+                  setNewsObj(
+                     <div id="too-bad">
+                        <h1>Too bad! no news found for {curCountry}</h1>
+                     </div>,
+                  );
+                  return;
                }
-               countryNewsObject.title = response.data.news[i].title;
-               countryNewsObject.text = response.data.news[i].text;
-               countryNewsObject.url = response.data.news[i].url;
-               countryNewsObject.image = response.data.news[i].image;
-               countryNewsObject.author = response.data.news[i].author;
-               countryNewsObject.publish_date = response.data.news[i].publish_date;
-               newsArray.push(countryNewsObject);
+               const curNewsObj = countryNewsObject();
+               curNewsObj.title = response.data.news[i].title;
+               curNewsObj.text = response.data.news[i].text;
+               curNewsObj.url = response.data.news[i].url;
+               curNewsObj.image = response.data.news[i].image;
+               curNewsObj.author = response.data.news[i].author;
+               curNewsObj.publish_date = response.data.news[i].publish_date;
+               newsArray.push(curNewsObj);
             }
 
+            console.log(newsArray[0].author);
+            console.log(newsArray[1].author);
+            console.log(newsArray[2].author);
+
             setNewsObj(
-               <div>
+               <div id="newsBoxDiv">
                   <h1>Top Climate/Energy News From {curCountry}</h1>
-                  <p>title: {newsArray[0].title}</p>
-                  <p>text: {newsArray[0].text}</p>
+                  <div id="box">
+                     <p>TITLE: {newsArray[0].title}</p>
+                     <p>{newsArray[0].text.slice(0, 150)}...</p>
+                     <a href={newsArray[0].url}>For the full article click here!</a>
+                     <p>
+                        Article Written by: {newsArray[0].author} on {newsArray[0].publish_date}
+                     </p>
+                     <img
+                        src={newsArray[0].image}
+                        style={{ position: 'relative', width: '30vw', height: '30vh' }}
+                     />
+                  </div>
+                  <div id="box">
+                     <p>TITLE: {newsArray[1].title}</p>
+                     <p>{newsArray[1].text.slice(0, 150)}...</p>
+                     <a href={newsArray[1].url}>For the full article click here!</a>
+                     <p>
+                        Article Written by: {newsArray[1].author} on {newsArray[1].publish_date}
+                     </p>
+                     <img
+                        src={newsArray[1].image}
+                        style={{ position: 'relative', width: '30vw', height: '30vh' }}
+                     />
+                  </div>
+                  <div id="box">
+                     <p>TITLE: {newsArray[2].title}</p>
+                     <p>{newsArray[2].text.slice(0, 150)}...</p>
+                     <a href={newsArray[2].url}>For the full article click here!</a>
+                     <p>
+                        Article Written by: {newsArray[2].author} on {newsArray[2].publish_date}
+                     </p>
+                     <img
+                        src={newsArray[2].image}
+                        style={{ position: 'relative', width: '30vw', height: '30vh' }}
+                     />
+                  </div>
                </div>,
             );
          })

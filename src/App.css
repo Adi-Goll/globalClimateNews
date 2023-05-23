@@ -62,3 +62,27 @@
   color: #222;
   background: #fff;
 }
+
+#newsBoxDiv {
+  padding-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#box {
+  background-color: white;
+  border: solid 2px red;
+  width: 80vw;
+  height: 65vh;
+
+  color: black;
+  margin: 10vh;
+
+}
+
+#too-bad {
+  position: relative;
+  left: 13vw;
+}
