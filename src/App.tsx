@@ -76,8 +76,8 @@ function App() {
                <div id="newsBoxDiv">
                   <h1>Top Climate/Energy News From {curCountry}</h1>
                   <div id="box">
-                     <p>TITLE: {newsArray[0].title}</p>
-                     <p>{newsArray[0].text.slice(0, 150)}...</p>
+                     <h3>{newsArray[0].title}</h3>
+                     <p>{newsArray[0].text.slice(0, 200)}...</p>
                      <a href={newsArray[0].url}>For the full article click here!</a>
                      <p>
                         Article Written by: {newsArray[0].author} on {newsArray[0].publish_date}
@@ -88,7 +88,7 @@ function App() {
                      />
                   </div>
                   <div id="box">
-                     <p>TITLE: {newsArray[1].title}</p>
+                     <h3>{newsArray[1].title}</h3>
                      <p>{newsArray[1].text.slice(0, 150)}...</p>
                      <a href={newsArray[1].url}>For the full article click here!</a>
                      <p>
@@ -100,7 +100,7 @@ function App() {
                      />
                   </div>
                   <div id="box">
-                     <p>TITLE: {newsArray[2].title}</p>
+                     <h3>{newsArray[2].title}</h3>
                      <p>{newsArray[2].text.slice(0, 150)}...</p>
                      <a href={newsArray[2].url}>For the full article click here!</a>
                      <p>
